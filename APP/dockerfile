@@ -1,0 +1,28 @@
+FROM node:16
+
+# Define o diretório de trabalho dentro do contêiner
+WORKDIR /app
+
+# Copia os arquivos de dependências para o contêiner
+COPY package*.json ./
+
+# Instala as dependências do projeto
+RUN npm install
+
+# Copia todos os arquivos da aplicação para o contêiner
+COPY . .
+
+# Certifique-se de que o arquivo principal está no local correto
+# e que o nome do arquivo principal no package.json está correto.
+
+# Adiciona o arquivo index.js ao contêiner
+COPY index.js ./index.js
+
+# Expõe a porta 5000 (ajustada para coincidir com o docker-compose.yml)
+EXPOSE 5000
+
+# Comando para iniciar a aplicação
+CMD ["npm", "start"]
+
+# docker build -t nome-da-imagem .
+#docker run -p 5000:5000 nome-da-imagem
